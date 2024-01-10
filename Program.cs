@@ -1,3 +1,5 @@
+using System.Net;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,6 +14,19 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseStatusCodePages(context =>
+{
+	var request = context.HttpContext.Request;
+	var response = context.HttpContext.Response;
+
+	if (response.StatusCode == (int)HttpStatusCode.NotFound)
+	{
+		response.Redirect("NotFound");
+	}
+
+	return Task.CompletedTask;
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
