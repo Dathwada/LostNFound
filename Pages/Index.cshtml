@@ -1,10 +1,30 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+	ViewData["Title"] = "Gefundene Gegenstände";
 }
+<div class="d-flex flex-wrap justify-content-center">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+	@for (int i = 1; i < 20; i++) {
+		// ONLY FOR TESTING
+		<div class="card me-3 mb-3" style="width: 20rem; min-width: 20rem;">
+			<img src="https://xn--freundeskreis-flchtlinge-lahr-0bd.de/wp-content/uploads/2020/02/Gegenst%C3%A4nde-Schl%C3%BCsselbund.jpg" class="card-img-top" alt="...">
+			<div class="card-body">
+				<h5 class="card-title">Schlüsselbund</h5>
+				<p class="card-text text-truncate">testttt ashdashd asdasd asdasd asdas dasdasdsahud  asiudhasd h akshdjkash askjdh  kjhaskjdd</p>
+				<div class="text-end">
+					<a asp-page="Item" asp-route-item="@i" class="btn btn-primary">mehr</a>
+				</div>
+			</div>
+			<div class="card-footer text-body-secondary d-flex justify-content-between">
+				<div title="Wurde zu diesem Zeitpunkt gefunden.">
+					<i class="bi bi-clock"></i> 09.01.2023
+				</div>
+				<div title="Wurde an dieser Location gefunden.">
+					<i class="bi bi-geo-alt-fill"></i> Raum 42
+				</div>
+			</div>
+		</div>
+	}
+
 </div>
