@@ -1,0 +1,48 @@
+﻿@page "{item?}"
+@model LostNFound.Pages.ItemModel
+@{
+}
+
+
+<div class="card mb-3">
+	<div class="row g-0">
+		<div class="col-md-4">
+			<img src="@Model.ImagePath" class="img-fluid rounded-start" alt="...">
+		</div>
+		<div class="col-md-8">
+			<div class="card-body">
+				<h5 class="card-title">@Model.CategoryId</h5>
+				<p class="card-text">@Model.Description</p>
+				<p class="card-text" title="Wurde zu diesem Zeitpunkt gefunden."><small class="text-body-secondary"><i class="bi bi-clock"></i> @Model.DateFound</small></p>
+				@if (Model.LocationFound != null) {
+					<p class="card-text" title="Wurde an dieser Location gefunden."><small class="text-body-secondary"><i class="bi bi-geo-alt-fill"></i> @Model.LocationFound</small></p>
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="card p-3">
+	<form>
+		<div class="mb-3">
+			<label for="formName" class="form-label">Name:</label>
+			<input type="text" class="form-control" id="formName" required>
+		</div>
+
+		<div class="mb-3">
+			<label for="formEmail" class="form-label">Email:</label>
+			<input type="email" class="form-control" id="formEmail" required>
+		</div>
+		<div class="mb-3">
+			<label for="formTextarea" class="form-label">Deshalb gehört mir der Gegenstand</label>
+			<textarea class="form-control" placeholder="Der Gegenstand gehört mir weil, ..." id="formTextarea" style="height: 100px"></textarea>
+		</div>
+		<div class="mb-3 form-check">
+			<input type="checkbox" class="form-check-input" id="formCheckbox" required>
+			<label class="form-check-label" for="formCheckbox">Bedingungen akzeptieren</label>
+		</div>
+		<button type="submit" class="btn btn-primary">Absenden</button>
+	</form>
+
+
+</div>
