@@ -1,9 +1,18 @@
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+// Add ToastNotification
+builder.Services.AddNotyf(config => {
+	config.DurationInSeconds = 5;
+	config.IsDismissable = true;
+	config.Position = NotyfPosition.TopRight;
+});
 
 var app = builder.Build();
 
@@ -33,5 +42,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.UseNotyf();
 
 app.Run();

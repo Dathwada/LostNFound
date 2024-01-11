@@ -1,20 +1,13 @@
-using Microsoft.AspNetCore.Mvc;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace LostNFound.Pages
-{
-    public class IndexModel : PageModel
-    {
-        private readonly ILogger<IndexModel> _logger;
+namespace LostNFound.Pages {
+	public class IndexModel(ILogger<IndexModel> logger, INotyfService notifyService) : PageModel {
+		private readonly ILogger<IndexModel> _logger = logger;
+		public INotyfService Toast { get; } = notifyService;
 
-        public IndexModel(ILogger<IndexModel> logger)
-        {
-            _logger = logger;
-        }
+		public void OnGet() {
 
-        public void OnGet()
-        {
-
-        }
-    }
+		}
+	}
 }

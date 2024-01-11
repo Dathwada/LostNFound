@@ -1,8 +1,8 @@
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace LostNFound.Pages {
-	public class ItemModel : PageModel {
 
 		public int? Id { get; set; }
 		public int CategoryId { get; set; }
@@ -12,6 +12,8 @@ namespace LostNFound.Pages {
 		public string LocationFound { get; set; }
 
 		public IActionResult OnGet(int id) {
+	public class ItemModel(INotyfService notifyService) : PageModel {
+		public INotyfService Toast { get; } = notifyService;
 
 			// ONLY FOR TESTING
 			Id = id;
