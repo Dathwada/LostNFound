@@ -24,3 +24,8 @@ body {
 header { /* Fix for transparent header */
     background-color: var(--bs-body-bg);
 }
+
+.required::after {
+    content: ' *';
+    color: red;
+}

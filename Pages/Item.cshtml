@@ -3,6 +3,7 @@
 @{
 }
 
+<div><a asp-page="Index" class="btn btn-primary mb-2">Zurück</a></div>
 
 <div class="card mb-3">
 	<div class="row g-0">
@@ -24,19 +25,44 @@
 
 <div class="card p-3">
 	<form>
-		<div class="mb-3">
-			<label for="formName" class="form-label">Name:</label>
-			<input type="text" class="form-control" id="formName" required>
+		<div class="row">
+			<div class="col mb-3">
+				<label for="formFirstname" class="form-label required">Vorname:</label>
+				<input type="text" class="form-control" id="formFirstname" required>
+			</div>
+
+			<div class="col mb-3">
+				<label for="formLastName" class="form-label required">Nachname:</label>
+				<input type="text" class="form-control" id="formLastName" required>
+			</div>
 		</div>
 
-		<div class="mb-3">
-			<label for="formEmail" class="form-label">Email:</label>
-			<input type="email" class="form-control" id="formEmail" required>
+		<div class="row">
+			<div class="col mb-3">
+				<label for="formClass" class="form-label required">Klasse:</label>
+				<input type="text" class="form-control" id="formClass" required>
+			</div>
+
+			<div class="col mb-3">
+				<label for="formEmail" class="form-label required">Email:</label>
+				<input type="email" class="form-control" id="formEmail" required>
+			</div>
 		</div>
-		<div class="mb-3">
-			<label for="formTextarea" class="form-label">Deshalb gehört mir der Gegenstand</label>
-			<textarea class="form-control" placeholder="Der Gegenstand gehört mir weil, ..." id="formTextarea" style="height: 100px"></textarea>
+
+		<div class="row">
+			<div class="col mb-3">
+				<label for="formTextarea" class="form-label required">Deshalb gehört mir der Gegenstand</label>
+				<textarea class="form-control" placeholder="Der Gegenstand gehört mir weil, ..." id="formTextarea" style="height: 100px" required></textarea>
+			</div>
+
+			<div class="col mb-3">
+				<label for="formFile" class="form-label">
+					Hier können Sie ein Bild anhängen, das zeigt, dass sie der Eigentümer des Gegenstandes sind. (max. 2 MB)
+				</label>
+				<input class="form-control" type="file" id="formFile" accept="image/png, image/jpeg">
+			</div>
 		</div>
+
 		<div class="mb-3 form-check">
 			<input type="checkbox" class="form-check-input" id="formCheckbox" required>
 			<label class="form-check-label" for="formCheckbox">Bedingungen akzeptieren</label>
