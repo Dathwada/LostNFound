@@ -6,9 +6,12 @@
 	<title>@ViewData["Title"] - LostNFound</title>
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" />
+	<link rel="stylesheet" href="~/lib/select2/select2.min.css" />
+	<link rel="stylesheet" href="~/lib/select2/select2.bootstrap.css" />
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/LostNFound.styles.css" asp-append-version="true" />
 </head>
+
 <body>
 	<header class="sticky-top">
 		<nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
@@ -27,7 +30,7 @@
 					</ul>
 				</div>
 				-->
-				<button id="bd-theme" type="button" class="btn p-1 me-4 border-0" data-bs-toggle="tooltip" data-bs-title="Theme ändern">
+				<button id="bd-theme" type="button" class="btn p-1 me-4 border-0" title="Theme ändern">
 					<i class="bi bi-sun-fill"></i>
 				</button>
 			</div>
@@ -48,6 +51,7 @@
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="~/lib/bootstrap/color-mode.js"></script>
+	<script src="~/lib/select2/select2.min.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
 
 	@await RenderSectionAsync("Scripts", required: false)
