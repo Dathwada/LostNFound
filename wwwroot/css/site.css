@@ -29,3 +29,16 @@ header { /* Fix for transparent header */
     content: ' *';
     color: red;
 }
+
+.text-truncate-2 {
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+img {
+    width: 350px;
+    height: 233px;
+    object-fit: scale-down;
+}
