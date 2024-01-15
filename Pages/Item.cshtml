@@ -71,7 +71,7 @@
 		</div>
 
 		<input asp-for="Contact.ItemId" type="hidden" value="@RouteData.Values["item"]">
-		<button type="submit" asp-handler="ContactForm" class="btn btn-primary">Absenden</button>
+		<button type="submit" asp-page-handler="ContactForm" class="btn btn-primary">Absenden</button>
 	</form>
 
 	<small class="text-end">Felder mit <strong class="required"></strong> werden benötigt.</small>

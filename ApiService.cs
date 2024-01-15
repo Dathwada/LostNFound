@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using System.Net;
+using System.Text;
 
 namespace LostNFound {
 	public class ApiService {
@@ -46,6 +48,30 @@ namespace LostNFound {
 			}
 
 			return default;
+		}
+
+		public async Task<HttpStatusCode> PostDataObject<T>(string endpoint, T data) {
+			// Die Daten, die du senden möchtest
+			string jsonData = JsonConvert.SerializeObject(data);
+
+			// Erstelle eine Instanz von HttpClient
+			using (var client = this._httpClient) {
+				// Setze den Inhalt der Anfrage
+				StringContent content = new(jsonData, Encoding.UTF8, "application/json");
+
+				// Sende die POST-Anfrage
+				HttpResponseMessage response = await client.PostAsync($"{this._baseUrl}/{endpoint}", content);
+
+				// Überprüfe die Antwort
+				if (response.IsSuccessStatusCode) {
+					//Console.WriteLine("Daten erfolgreich an den API-Endpunkt gesendet.");
+				} else {
+					//Console.WriteLine($"Fehler beim Senden der Daten. Statuscode: {response.StatusCode}");
+				}
+
+				return response.StatusCode;
+			}
+
 		}
 	}
 }

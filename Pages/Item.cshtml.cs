@@ -2,6 +2,7 @@ using AspNetCoreHero.ToastNotification.Abstractions;
 using LostNFound.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Net;
 
 namespace LostNFound.Pages {
 	public class ItemModel(INotyfService notifyService) : PageModel {
@@ -27,15 +28,22 @@ namespace LostNFound.Pages {
 			return Page();
 		}
 
-		public IActionResult OnPostContactForm(ContactModel Contact) {
+		public async Task<IActionResult> OnPostContactForm(ContactModel Contact) {
 			if (ModelState.IsValid) {
 				try {
-					// Call API to insert data
+					ApiService apiClient = new();
+					HttpStatusCode statusCode = await apiClient.PostDataObject("addClaimant", Contact);
+
+					if (statusCode == HttpStatusCode.OK) {
+						Toast.Success("Ihre Anfrage wurde gesendet.");
+					} else {
+						throw new Exception();
+					}
+
 				} catch (Exception) {
-					Toast.Error("Leider ist ein Fehler aufgetretten.");
+					Toast.Error("Beim Senden Ihrer Anfrage ist ein Fehler aufgetreten.");
 				}
 
-				Toast.Success("Ihre Anfrage wurde gesendet.");
 				return RedirectToPage($"Item", new { item = Contact.ItemId });
 			}
 
