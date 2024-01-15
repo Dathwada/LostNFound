@@ -5,7 +5,12 @@
 $("#dropdownCategory").select2({
     theme: 'bootstrap-5',
     placeholder: "Kategorie auswählen",
-    allowClear: true
+    allowClear: true,
+    "language": {
+        "noResults": function () {
+            return "Keine Einträge gefunden";
+        }
+    }
 });
 
 function filterCards() {

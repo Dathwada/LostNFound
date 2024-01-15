@@ -37,7 +37,7 @@ header { /* Fix for transparent header */
     overflow: hidden;
 }
 
-img {
+#cards img {
     width: 350px;
     height: 233px;
     object-fit: scale-down;

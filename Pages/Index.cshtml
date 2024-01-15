@@ -2,57 +2,37 @@
 @model IndexModel
 @{
 	ViewData["Title"] = "Gefundene Gegenstände";
-
-	// ONLY FOR TESTING
-	var types = new List<SelectListItem>();
-	types.Add(new SelectListItem() { Text = "Schlüsselbund" });
-	types.Add(new SelectListItem() { Text = "Handtuch" });
-	types.Add(new SelectListItem() { Text = "Handy" });
 }
 
-@Html.DropDownList("dropdownCategory", types, "", new { @class = "form-control w-25", @onchange = "filterCards()" })
+@Html.DropDownList("dropdownCategory", Model.Categories, "", new { @class = "form-control w-25", @onchange = "filterCards()" })
 
 <div id="cards" class="d-flex flex-wrap justify-content-center mt-2">
 	<h1 id="noEntries" class="d-none">Keine Einträge gefunden.</h1>
 
-	@for (int i = 1; i < 20; i++) {
-		// ONLY FOR TESTING
-		<div class="card me-3 mb-3" style="min-width: 22rem; max-width: 22rem;">
-			<img src="https://xn--freundeskreis-flchtlinge-lahr-0bd.de/wp-content/uploads/2020/02/Gegenst%C3%A4nde-Schl%C3%BCsselbund.jpg" class="card-img-top" alt="...">
-			<div class="card-body">
-				<h5 class="card-title">Schlüsselbund</h5>
-				<p class="card-text text-truncate-2">testttt ashdashd asdasd asdasd asdas dasdasdsahud  asiudhasd h akshdjkash askjdh  kjhaskjdd</p>
-				<div class="text-end">
-					<a asp-page="Item" asp-route-item="@i" class="btn btn-primary">mehr</a>
+	@if (Model.Items != null) {
+		foreach (var item in Model.Items.Items) {
+			<div class="card me-3 mb-3" style="min-width: 22rem; max-width: 22rem;">
+				<img src="@item.ImagePath" class="card-img-top bg-white" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">@item.Category</h5>
+					<p class="card-text text-truncate-2">@item.Description</p>
+					<div class="text-end">
+						<a asp-page="Item" asp-route-item="@item.Id" class="btn btn-primary">Details</a>
+					</div>
+				</div>
+				<div class="card-footer text-body-secondary d-flex justify-content-between">
+					<div title="Wurde zu diesem Zeitpunkt gefunden.">
+						<i class="bi bi-clock"></i> @item.DateFound.ToString("dddd, dd MMMM yyyy")
+					</div>
+					<div title="Wurde an dieser Location gefunden.">
+						<i class="bi bi-geo-alt-fill"></i> @item.LocationFound
+					</div>
 				</div>
 			</div>
-			<div class="card-footer text-body-secondary d-flex justify-content-between">
-				<div title="Wurde zu diesem Zeitpunkt gefunden.">
-					<i class="bi bi-clock"></i> 09.01.2023
-				</div>
-				<div title="Wurde an dieser Location gefunden.">
-					<i class="bi bi-geo-alt-fill"></i> Raum 42
-				</div>
-			</div>
-		</div>
+		}
+	} else {
+		<h1>Keine Einträge gefunden.</h1>
 	}
 
-	<div class="card me-3 mb-3" style="width: 20rem; min-width: 20rem;">
-		<img src="https://www.hema.com/dw/image/v2/BBRK_PRD/on/demandware.static/-/Sites-HEMA-master-catalog/default/dw93005e6b/product/1000024219_01_001.jpg?sw=1600&sfrm=png&bgcolor=FFFFFF" class="card-img-top" alt="...">
-		<div class="card-body">
-			<h5 class="card-title">Handtuch</h5>
-			<p class="card-text text-truncate">testttt ashdashd asdasd asdasd asdas dasdasdsahud  asiudhasd h akshdjkash askjdh  kjhaskjdd</p>
-			<div class="text-end">
-				<a asp-page="Item" asp-route-item="101" class="btn btn-primary">mehr</a>
-			</div>
-		</div>
-		<div class="card-footer text-body-secondary d-flex justify-content-between">
-			<div title="Wurde zu diesem Zeitpunkt gefunden.">
-				<i class="bi bi-clock"></i> 09.01.2023
-			</div>
-			<div title="Wurde an dieser Location gefunden.">
-				<i class="bi bi-geo-alt-fill"></i> Raum 42
-			</div>
-		</div>
-	</div>
+
 </div>
