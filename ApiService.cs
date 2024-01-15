@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Serilog;
 using System.Net;
 using System.Text;
 
@@ -26,11 +27,11 @@ namespace LostNFound {
 				if (response.IsSuccessStatusCode) {
 					return await response.Content.ReadAsStringAsync();
 				} else {
-					Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
+					Log.Error($"Error: {response.StatusCode} - {response.ReasonPhrase}");
 					return null;
 				}
 			} catch (Exception ex) {
-				Console.WriteLine($"Exception: {ex.Message}");
+				Log.Error($"Message: {ex.Message}\n    StackTrace: {ex.StackTrace}");
 				return null;
 			}
 		}
@@ -42,7 +43,8 @@ namespace LostNFound {
 				try {
 					T? data = JsonConvert.DeserializeObject<T>(apiResponse);
 					return data;
-				} catch (Exception) {
+				} catch (Exception ex) {
+					Log.Error($"Message: {ex.Message}\n    StackTrace: {ex.StackTrace}");
 					return default;
 				}
 			}
@@ -51,22 +53,19 @@ namespace LostNFound {
 		}
 
 		public async Task<HttpStatusCode> PostDataObject<T>(string endpoint, T data) {
-			// Die Daten, die du senden möchtest
 			string jsonData = JsonConvert.SerializeObject(data);
 
-			// Erstelle eine Instanz von HttpClient
 			using (var client = this._httpClient) {
-				// Setze den Inhalt der Anfrage
 				StringContent content = new(jsonData, Encoding.UTF8, "application/json");
 
-				// Sende die POST-Anfrage
+				// Send POST
 				HttpResponseMessage response = await client.PostAsync($"{this._baseUrl}/{endpoint}", content);
 
-				// Überprüfe die Antwort
+				// Check StatusCode
 				if (response.IsSuccessStatusCode) {
-					//Console.WriteLine("Daten erfolgreich an den API-Endpunkt gesendet.");
+					Log.Information($"Message: Daten erfolgreich an den API-Endpunkt '{endpoint}' gesendet.");
 				} else {
-					//Console.WriteLine($"Fehler beim Senden der Daten. Statuscode: {response.StatusCode}");
+					Log.Error($"Message: Fehler beim Senden der Daten. Statuscode: {response.StatusCode}");
 				}
 
 				return response.StatusCode;

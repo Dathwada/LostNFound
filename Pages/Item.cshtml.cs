@@ -2,6 +2,7 @@ using AspNetCoreHero.ToastNotification.Abstractions;
 using LostNFound.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Serilog;
 using System.Net;
 
 namespace LostNFound.Pages {
@@ -37,10 +38,11 @@ namespace LostNFound.Pages {
 					if (statusCode == HttpStatusCode.OK) {
 						Toast.Success("Ihre Anfrage wurde gesendet.");
 					} else {
-						throw new Exception();
+						throw new Exception($"StatusCode war nicht OK. StatusCode: {statusCode}");
 					}
 
-				} catch (Exception) {
+				} catch (Exception ex) {
+					Log.Error($"Message: {ex.Message}\n    StackTrace: {ex.StackTrace}");
 					Toast.Error("Beim Senden Ihrer Anfrage ist ein Fehler aufgetreten.");
 				}
 

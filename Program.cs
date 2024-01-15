@@ -1,5 +1,6 @@
 using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;
+using Serilog;
 using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,18 @@ builder.Services.AddNotyf(config => {
 	config.IsDismissable = true;
 	config.Position = NotyfPosition.TopRight;
 });
+
+// Add Serilog
+var configuration = new ConfigurationBuilder()
+	.SetBasePath(Directory.GetCurrentDirectory())
+	.AddJsonFile(path: "appsettings.json", optional: false, reloadOnChange: true)
+	.Build();
+
+var log = new LoggerConfiguration()
+	.ReadFrom.Configuration(configuration)
+	.CreateLogger();
+
+Log.Logger = log;
 
 var app = builder.Build();
 

@@ -5,8 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LostNFound.Pages {
-	public class IndexModel(ILogger<IndexModel> logger, INotyfService notifyService) : PageModel {
-		private readonly ILogger<IndexModel> _logger = logger;
+	public class IndexModel(INotyfService notifyService) : PageModel {
 		public INotyfService Toast { get; } = notifyService;
 		public List<SelectListItem?> Categories = new();
 		public ItemModelList? Items = new();
