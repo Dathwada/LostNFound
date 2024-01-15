@@ -2,21 +2,24 @@
 @model LostNFound.Pages.ItemModel
 @{
 }
+@section scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
 
 <div><a asp-page="Index" class="btn btn-primary mb-2">Zurück</a></div>
 
 <div class="card mb-3">
 	<div class="row g-0">
-		<div class="col-md-4">
+		<div class="col-md-4 rounded-start d-flex justify-content-center bg-white">
 			<img src="@Model.ImagePath" class="img-fluid rounded-start" alt="...">
 		</div>
 		<div class="col-md-8">
 			<div class="card-body">
 				<h5 class="card-title">@Model.CategoryId</h5>
 				<p class="card-text">@Model.Description</p>
-				<p class="card-text" title="Wurde zu diesem Zeitpunkt gefunden."><small class="text-body-secondary"><i class="bi bi-clock"></i> @Model.DateFound</small></p>
+				<p class="card-text"><small class="text-body-secondary" title="Wurde zu diesem Zeitpunkt gefunden."><i class="bi bi-clock"></i> @Model.DateFound</small></p>
 				@if (Model.LocationFound != null) {
-					<p class="card-text" title="Wurde an dieser Location gefunden."><small class="text-body-secondary"><i class="bi bi-geo-alt-fill"></i> @Model.LocationFound</small></p>
+					<p class="card-text"><small class="text-body-secondary" title="Wurde an dieser Location gefunden."><i class="bi bi-geo-alt-fill"></i> @Model.LocationFound</small></p>
 				}
 			</div>
 		</div>
@@ -24,51 +27,52 @@
 </div>
 
 <div class="card p-3">
-	<form>
+	<form method="post" novalidate>
 		<div class="row">
 			<div class="col mb-3">
-				<label for="formFirstname" class="form-label required">Vorname:</label>
-				<input type="text" class="form-control" id="formFirstname" required>
+				<label asp-for="Contact.Firstname" class="form-label required"></label>
+				<input asp-for="Contact.Firstname" class="form-control" />
+				<span asp-validation-for="Contact.Firstname" class="text-danger"></span>
 			</div>
 
 			<div class="col mb-3">
-				<label for="formLastName" class="form-label required">Nachname:</label>
-				<input type="text" class="form-control" id="formLastName" required>
+				<label asp-for="Contact.Lastname" class="form-label required"></label>
+				<input asp-for="Contact.Lastname" class="form-control" />
+				<span asp-validation-for="Contact.Lastname" class="text-danger"></span>
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="col mb-3">
-				<label for="formClass" class="form-label required">Klasse:</label>
-				<input type="text" class="form-control" id="formClass" required>
+				<label asp-for="Contact.Class" class="form-label"></label>
+				<input asp-for="Contact.Class" class="form-control" />
+				<span asp-validation-for="Contact.Class" class="text-danger"></span>
 			</div>
 
 			<div class="col mb-3">
-				<label for="formEmail" class="form-label required">Email:</label>
-				<input type="email" class="form-control" id="formEmail" required>
+				<label asp-for="Contact.EMail" class="form-label required"></label>
+				<input asp-for="Contact.EMail" class="form-control" />
+				<span asp-validation-for="Contact.EMail" class="text-danger"></span>
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="col mb-3">
-				<label for="formTextarea" class="form-label required">Deshalb gehört mir der Gegenstand</label>
-				<textarea class="form-control" placeholder="Der Gegenstand gehört mir weil, ..." id="formTextarea" style="height: 100px" required></textarea>
-			</div>
-
-			<div class="col mb-3">
-				<label for="formFile" class="form-label">
-					Hier können Sie ein Bild anhängen, das zeigt, dass sie der Eigentümer des Gegenstandes sind. (max. 2 MB)
-				</label>
-				<input class="form-control" type="file" id="formFile" accept="image/png, image/jpeg">
+				<label asp-for="Contact.Note" class="form-label"></label>
+				<textarea asp-for="Contact.Note" class="form-control" placeholder="Der Gegenstand gehört mir weil, ..." style="height: 100px"></textarea>
+				<span asp-validation-for="Contact.Note" class="text-danger"></span>
 			</div>
 		</div>
 
 		<div class="mb-3 form-check">
-			<input type="checkbox" class="form-check-input" id="formCheckbox" required>
-			<label class="form-check-label" for="formCheckbox">Bedingungen akzeptieren</label>
+			<label asp-for="Contact.HasAccepted" class="form-check-label required"></label>
+			<input asp-for="Contact.HasAccepted" class="form-check-input" data-rule-required="true">
+			<span asp-validation-for="Contact.HasAccepted" class="text-danger"></span>
 		</div>
-		<button type="submit" class="btn btn-primary">Absenden</button>
+
+		<input asp-for="Contact.ItemId" type="hidden" value="@RouteData.Values["item"]">
+		<button type="submit" asp-handler="ContactForm" class="btn btn-primary">Absenden</button>
 	</form>
 
-
+	<small class="text-end">Felder mit <strong class="required"></strong> werden benötigt.</small>
 </div>

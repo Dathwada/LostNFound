@@ -1,4 +1,5 @@
 using AspNetCoreHero.ToastNotification.Abstractions;
+using LostNFound.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -14,6 +15,8 @@ namespace LostNFound.Pages {
 		public IActionResult OnGet(int id) {
 	public class ItemModel(INotyfService notifyService) : PageModel {
 		public INotyfService Toast { get; } = notifyService;
+		public int ItemId { get; set; }
+		public Models.ContactModel Contact { get; set; } = new();
 
 			// ONLY FOR TESTING
 			Id = id;
@@ -25,6 +28,18 @@ namespace LostNFound.Pages {
 
 			if (Id == null) {
 				return RedirectToPage("NotFound");
+			ItemId = item - 1;
+
+		public IActionResult OnPostContactForm(ContactModel Contact) {
+			if (ModelState.IsValid) {
+				try {
+					// Call API to insert data
+				} catch (Exception) {
+					Toast.Error("Leider ist ein Fehler aufgetretten.");
+				}
+
+				Toast.Success("Ihre Anfrage wurde gesendet.");
+				return RedirectToPage($"Item", new { item = Contact.ItemId });
 			}
 
 			return Page();
