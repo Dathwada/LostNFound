@@ -15,6 +15,11 @@ namespace LostNFound.Pages {
 		public async Task<IActionResult> OnGetAsync(int item) {
 			ItemId = item - 1;
 
+			if (item == 0) {
+				Toast.Error("Bitte geben Sie eine Gegenstands ID an.");
+				return RedirectToPage("Index");
+			}
+
 			ApiService apiClient = new();
 			var ItemList = await apiClient.GetDataObject<ItemModelList>("getItems");
 			Item = ItemList?.Items?.Find(obj => obj.Id == item && obj.IsClaimed == false);
