@@ -8,13 +8,13 @@ namespace LostNFound.Pages {
 	public class IndexModel(INotyfService notifyService) : PageModel {
 		public INotyfService Toast { get; } = notifyService;
 		public List<SelectListItem?> Categories = new();
-		public ItemModelList? Items = new();
+		public List<Models.ItemModel>? Items = new();
 
 		public async Task<IActionResult> OnGetAsync() {
 			ApiService apiClient = new();
 
 			// Fetch category data
-			CategoryModelList? categoriesData = await apiClient.GetDataObject<CategoryModelList>("categories");
+			CategoryModelList? categoriesData = await apiClient.GetDataObject<CategoryModelList>("getCategories");
 			if (categoriesData?.Categories != null) {
 				// Add categories to SelectListItem list
 				Categories.AddRange(
@@ -23,7 +23,9 @@ namespace LostNFound.Pages {
 			}
 
 			// Fetch items
-			Items = await apiClient.GetDataObject<ItemModelList>("items");
+			var itemList = await apiClient.GetDataObject<ItemModelList>("getItems");
+
+			Items = itemList?.Items.FindAll(obj => obj.IsClaimed == false);
 
 			return Page();
 		}

@@ -13,18 +13,16 @@ namespace LostNFound.Pages {
 		public ContactModel Contact { get; set; } = new();
 
 		public async Task<IActionResult> OnGetAsync(int item) {
-			// ONLY FOR TESTING
 			ItemId = item - 1;
 
 			ApiService apiClient = new();
-			var ItemList = await apiClient.GetDataObject<ItemModelList>("items");
+			var ItemList = await apiClient.GetDataObject<ItemModelList>("getItems");
+			Item = ItemList?.Items?.Find(obj => obj.Id == item && obj.IsClaimed == false);
 
-			if (ItemList == null || ItemList.Items.Count <= ItemId) {
+			if (Item == null) {
 				Toast.Error("Es konnten leider keine Daten für den gesuchten Gegenstand gefunden werden.");
 				return RedirectToPage("Index");
 			}
-
-			Item = ItemList.Items[ItemId];
 
 			return Page();
 		}

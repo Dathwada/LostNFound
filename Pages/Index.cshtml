@@ -10,7 +10,7 @@
 	<h1 id="noEntries" class="d-none">Keine Einträge gefunden.</h1>
 
 	@if (Model.Items != null) {
-		foreach (var item in Model.Items.Items) {
+		foreach (var item in Model.Items) {
 			<div class="card me-3 mb-3" style="min-width: 22rem; max-width: 22rem;">
 				<img src="@item.ImagePath" class="card-img-top bg-white" alt="..." draggable="false">
 				<div class="card-body">

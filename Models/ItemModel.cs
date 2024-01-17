@@ -20,6 +20,6 @@
 		// public int FinderId { get; set; }
 		// public int? ClaimedUserId { get; set; }
 		// public DateTime? ClaimedDate { get; set; }
-		// public bool IsClaimed { get; set; }
+		 public bool IsClaimed { get; set; }
 	}
 }
